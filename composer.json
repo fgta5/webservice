@@ -1,0 +1,15 @@
+{
+    "name": "fgta5/webservice",
+    "autoload": {
+        "psr-4": {
+            "Fgta5\\Webservice\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Agung Nugroho",
+            "email": "agung.dhewe@gmail.com"
+        }
+    ],
+    "require": {}
+}

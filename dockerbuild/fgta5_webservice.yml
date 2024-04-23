@@ -1,0 +1,29 @@
+version: '3.9'
+
+services:
+  fgta5_webservice:
+    container_name: fgta5_webservice
+    image: webserver_8_2_1 
+    hostname: fgta5_webservice
+    ports:
+      - 8000:80
+    networks:
+      - devnetwork 
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      - DEBUG=true
+    volumes:
+      - /Volumes/Development/fgta5/webservice:/var/www/html:consistent
+      - /Volumes/ramdisk:/mnt/ramdisk
+    working_dir: /var/www/html
+   
+
+networks:
+  devnetwork:
+    name: devnetwork
+    external: true
+
+
+
+

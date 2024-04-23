@@ -1,0 +1,17 @@
+ini halaman home
+<div>
+<?php 
+use Fgta5\Webservice\Session;
+if (Session::getCurrentLogin()) {
+	echo "Saya <b>sudah</b> login<br>";
+	echo "<button id=\"btn_login\" style=\"display: none\">Login</button>";
+	echo "<button id=\"btn_refreshtoken\">Refresh Token</button>";
+	echo "<button id=\"btn_logout\">Logout</button>";
+} else {
+	echo "Saya belum login<br>";
+	echo "<button id=\"btn_login\">Login</button>";
+	echo "<button id=\"btn_refreshtoken\" style=\"display: none\">Refresh Token</button>";
+	echo "<button id=\"btn_logout\" style=\"display: none\">Logout</button>";
+}
+?>
+</div>

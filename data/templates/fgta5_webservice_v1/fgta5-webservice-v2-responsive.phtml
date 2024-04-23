@@ -1,0 +1,29 @@
+<?php
+
+use Fgta5\Webservice\Template;
+
+?><!DOCTYPE HTML>
+<html lang="id">
+	<head>
+		<title><?=Template::$PageTitle?></title>
+		<base href="<?=Template::getBaseAddress()?>/">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
+
+		<link rel="shortcut icon" href="favicon.ico">
+		<link rel="stylesheet" href="<?=Template::getTemplateAssetUrl('fgta5-webservice-v2-responsive.css')?>">
+
+		<?php
+		$pagecssurl=Template::getPageCssUrl();
+		if ($pagecssurl!=null) {
+		?>
+		<link rel="stylesheet" href="<?=$pagecssurl?>">
+		<?php } ?>	
+
+	</head>
+	<body>
+		<?=Template::getPage()->Show();?>
+	</body>
+</html>
+<?php Template::pageMjsStart()?>
+<?php Template::includeAllJavascriptModule() ?>
+</script>	
