@@ -24,7 +24,7 @@ Configuration::$APP_CONFIG = [
 	'LIB_FGTA5WEBSERVICE_DIR' => __ROOT_DIR__ .'/src',
 	'DB' => [
 		'FGTAMAIN' => [
-			'DSN' => "mysql:host=3307_fgtadb;dbname=kalistadblocal",
+			'DSN' => "mysql:host=mariadblocal;dbname=kalistadblocal",
 			'user' => "root",
 			'pass' => "",
 			'param' => DB_PARAM			
@@ -46,4 +46,4 @@ Configuration::$ACTIVE_CONFIG = [
 	'TEMPLATE' => 'TEMPLATES/DEFAULT'
 ];
 
-require_once __DIR__ . '/app-keypair.php';
+require_once __DIR__ . '/app-keypair-debug.php';
