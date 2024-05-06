@@ -8,6 +8,7 @@ $PAGE_CONFIG = [
 	//'phtml-mobile' => __DIR__ . '/home-mobile.phtml',
 	'css' =>  __DIR__ . '/home.css',
 	'mjs' =>  __DIR__ . '/home.mjs',
+	'authorized' => false,
 ];
 
 
