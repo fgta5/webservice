@@ -61,6 +61,17 @@ class PageService extends Service {
 			Debug::die("Cek file'$this->_pageconffile'\r\nclassname belum didefinisikan di \$PAGE_CONFIG.\r\n\$PAGE_CONFIG = ['classname'=>'your\\class\\name']");
 		}
 
+
+		$authorized = array_key_exists('authorized', $PAGE_CONFIG) ? $PAGE_CONFIG['authorized'] : true;
+		if ($authorized!==false) {
+			try {
+				$this->VerifyAuthorization();
+			} catch (\Exception $ex) {
+				echo "login dulu";	
+				die();
+			}
+		}
+
 		$page_classname = $PAGE_CONFIG['classname'];
 		if (!class_exists($page_classname)) {
 			Debug::die("Class '$page_classname' tidak ditemukan");
@@ -135,6 +146,15 @@ class PageService extends Service {
 		return trim($requestedparameter, '/');
 	}
 
-	
+	protected function VerifyAuthorization() : void {
+		try {
+			if (Session::getCurrentLogin()==null) {
+				throw new \Exception('Sesi ini tidak diauthorisasi', 10020); 
+			}
+		} catch (\Exception $ex) {
+			throw $ex;
+		}
+	}
 
 }
+
