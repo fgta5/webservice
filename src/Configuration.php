@@ -15,7 +15,13 @@ class Configuration {
 	}
 
 	public static function getBaseAddress() : string {
-		$baseaddress = self::getAppConfig('BASEADDRESS');
+		if (array_key_exists('HTTP_X_FORWARDED_HOST', $_SERVER)) {
+			$server_proto = $_SERVER['HTTP_X_FORWARDED_PROTO'];
+			$server_host = $_SERVER['HTTP_X_FORWARDED_HOST']; 
+			$baseaddress = "$server_proto://$server_host";
+		} else {
+			$baseaddress = self::getAppConfig('BASEADDRESS');
+		}
 		$baseaddress = trim($baseaddress, "/");
 		return $baseaddress;
 	}
