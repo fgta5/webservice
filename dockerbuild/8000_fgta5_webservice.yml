@@ -3,7 +3,7 @@ version: '3.9'
 services:
   fgta5_webservice:
     container_name: fgta5_webservice
-    image: webserver_8_2_1 
+    image: webserver_8_2
     hostname: fgta5_webservice
     ports:
       - 8000:80
