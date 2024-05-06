@@ -1,3 +1,0 @@
-#!/bin/bash
-
-docker container restart fgta5_webservice

@@ -1,0 +1,3 @@
+#!/bin/bash
+
+docker compose -f ./dockerbuild/8000_fgta5_webservice.yml up -d
