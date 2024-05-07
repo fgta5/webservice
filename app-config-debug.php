@@ -18,6 +18,8 @@ Configuration::$APP_CONFIG = [
 
 	'FAVICON_URLPATH' => 'data/assets/ferrineicon.ico',
 
+	'LOGIN_PAGE' => 'page/login',
+
 	'TEMPLATES' => [
 		'DEFAULT' => __ROOT_DIR__ .'/data/templates/fgta5_webservice_v1',
 	],
