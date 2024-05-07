@@ -6,7 +6,7 @@ services:
     image: webserver_8_2
     hostname: fgta5_webservice
     ports:
-      - 8000:80
+      - 8005:80
     networks:
       - devnetwork 
     extra_hosts:
