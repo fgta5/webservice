@@ -1,0 +1,4 @@
+#!/bin/bash
+
+docker compose -f ./dockerbuild/8005_fgta5_webservice.yml down
+
