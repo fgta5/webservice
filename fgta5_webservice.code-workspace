@@ -13,10 +13,9 @@
 				"name": "Listen for Xdebug",
 				"type": "php",
 				"request": "launch",
-				"port": 9000,
+				"port": 9005,
 				"pathMappings": {
-					"/var/www/html": "${workspaceRoot}",
-					"/var/www/fgta5": "/Volumes/Development/fgta5",
+					"/var/www/html": "${workspaceRoot}"
 				}
 			}
 		]
