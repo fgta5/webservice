@@ -12,26 +12,67 @@ class WebAuth extends Api {
 		try {
 			$requestData = $postdata['requestData'];
 
-			//$username = $requestData['username'];
-			//$password = $requestData['password'];
+			$user_id = $requestData['user_id'];
+			$user_password = $requestData['user_password'];
+			$user_fullname = '';
 
-		
+			// dummy login
+			if ($user_id=='parto' && $user_password=='widjojo') {
+				// Login berhasil
+				$user_fullname = 'Parto Widjodo';
+				$userdata = [
+					'user_id' => $user_id,
+					'user_fullname' => $user_fullname
+				];
 
-			//TODO: buat script untuk check data client	
-			//Cek apakah client Valid
+				$tokendata = $this->createLoginToken($userdata);
+				return [
+					'success' => true,
+					'message' => 'login success',
+					'user_id' => $user_id,
+					'user_fullname' => $user_fullname,
+					'token' => $tokendata['token'],
+					'expired' => $tokendata['expired'],	
+				];
+
+			} else {
+				// Login gagal
+				return [
+					'success' => false,
+					'message' => 'login gagal'
+				];
+			}
+
+		} catch (\Exception $ex) {
+			throw $ex;
+		}
+	}
+
+	public function createLoginToken(array $userdata) : array {
+		try {
+			if (!array_key_exists('user_id', $userdata)) {
+				throw new \Exception("'user_id' tidak ditemukan pada parameter \$userdata");
+			}
+
+			if (!array_key_exists('user_fullname', $userdata)) {
+				throw new \Exception("'user_fullname' tidak ditemukan pada parameter \$userdata");
+			}
 
 
-			//TODO: buat script untuk login
-			// ...
-			// ...
+			
 
-			// sampai di sini login sudah sukses
-			// buat session
 			$token = Session::create_token([
-				'user_id' => 'dummy_user_id',
-				'user_fullname' => 'dummy_user_fullname'
+				'user_id' => $userdata['user_id'],
+				'user_fullname' => $userdata['user_fullname']
 			]);
-			$expired = Session::getTokenMaxLifeTime(); 
+
+			if (array_key_exists('PHPSESSID', $_COOKIE)) {
+				$expired = Session::getTokenPageMaxLifeTime(); 
+			} else {
+				$expired = Session::getTokenApiMaxLifeTime(); 
+			}
+			
+			
 
 			return [
 				'token' => $token,
@@ -60,7 +101,11 @@ class WebAuth extends Api {
 		try {
 
 			$newtoken = Session::refresh_token();
-			$expired = Session::getTokenMaxLifeTime(); 
+			if (array_key_exists('PHPSESSID', $_COOKIE)) {
+				$expired = Session::getTokenPageMaxLifeTime(); 
+			} else {
+				$expired = Session::getTokenApiMaxLifeTime(); 
+			}
 
 			return [
 				'newtoken' => $newtoken,
