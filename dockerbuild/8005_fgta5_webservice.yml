@@ -14,8 +14,7 @@ services:
     environment:
       - DEBUG=true
     volumes:
-      - /Volumes/Development/fgta5/webservice:/var/www/html:consistent
-      - /Volumes/ramdisk:/mnt/ramdisk
+      - ./../:/var/www/html:consistent
     working_dir: /var/www/html
    
 
