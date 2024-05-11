@@ -14,17 +14,14 @@ class Session {
 		self::$__dbConn = $dbConn;
 	}
 
-	public static function getSessionApiMaxLifeTime() : int {
-		return Configuration::getAppConfig('SESSION_API_MAX_LIFETIME', self::API_MAX_LIFETIME);
+	public static function getTokenApiMaxLifeTime() : int {
+		return Configuration::getAppConfig('TOKEN_API_MAX_LIFETIME', self::API_MAX_LIFETIME);
 	} 
 
-	public static function getSessionPageMaxLifeTime() : int {
-		return Configuration::getAppConfig('SESSION_PAGE_MAX_LIFETIME', self::PAGE_MAX_LIFETIME);
+	public static function getTokenPageMaxLifeTime() : int {
+		return Configuration::getAppConfig('TOKEN_PAGE_MAX_LIFETIME', self::PAGE_MAX_LIFETIME);
 	} 
 
-	public static function getTokenMaxLifeTime() : int {
-		return Configuration::getAppConfig('TOKEN_MAX_LIFETIME', self::TOKEN_MAX_LIFETIME);
-	} 
 
 	public static function create_token(array $userinfo) : string {
 		self::clearExpiredToken();
@@ -37,7 +34,7 @@ class Session {
 		$db = self::$__dbConn;
 
 		try {
-			$maxlifetime = self::getSessionApiMaxLifeTime();
+			$maxlifetime = self::getTokenApiMaxLifeTime();
 			if (is_array($_COOKIE)) {
 				if (array_key_exists('PHPSESSID', $_COOKIE)) {
 					$presessid = $_COOKIE['PHPSESSID'];
@@ -97,7 +94,7 @@ class Session {
 			}
 
 			// simpan di fgt_token
-			$maxlifetime = $accesstype=='api' ? self::getSessionApiMaxLifeTime() : self::getTokenMaxLifeTime();
+			$maxlifetime = $accesstype=='api' ? self::getTokenApiMaxLifeTime() : self::getTokenPageMaxLifeTime();
 			$data = [
 				'token_id' => $token_id,
 				'token_data' => $token,
@@ -163,7 +160,7 @@ class Session {
 			// Create Token baru
 			$sessdata = self::get($sessid); 
 			$accesstype = $sessdata['session_accesstype'];
-			$maxlifetime = $accesstype=='api' ? self::getSessionApiMaxLifeTime() : self::getTokenMaxLifeTime();
+			$maxlifetime = $accesstype=='api' ? self::getTokenApiMaxLifeTime() : self::getTokenPageMaxLifeTime();
 	
 			$sidlen = str_pad(strlen($sessid), 3, 0, STR_PAD_LEFT);
 			$timestamp = date_format(date_timestamp_set(new \DateTime(), time()), 'c');
@@ -300,7 +297,7 @@ class Session {
 			$sessid = substr($token, 3, $sessidlength);
 			$sessdata = self::get($sessid);
 			if ($sessdata==null) {
-				$maxlifetime = self::getSessionApiMaxLifeTime(); //self::API_MAX_LIFETIME;
+				$maxlifetime = self::getTokenApiMaxLifeTime(); //self::API_MAX_LIFETIME;
 				$create_new_session = true;
 			} else {
 				$maxlifetime = $sessdata['session_maxlifetime'];
@@ -377,7 +374,7 @@ class Session {
 			}
 		}
 
-		$maxlifetime = self::getSessionPageMaxLifeTime(); //self::PAGE_MAX_LIFETIME; // 30 menit
+		$maxlifetime = self::getTokenPageMaxLifeTime(); //self::PAGE_MAX_LIFETIME; // 30 menit
 		$currentTime = time();
 		$expireTime = $currentTime + $maxlifetime;
 		$session_timestamp = date_format(date_timestamp_set(new \DateTime(), $currentTime), 'Y-m-d H:i:s');

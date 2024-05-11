@@ -1,17 +1,77 @@
-ini halaman home
-<div>
 <?php 
 use Fgta5\Webservice\Session;
-if (Session::getCurrentLogin()) {
-	echo "Saya <b>sudah</b> login<br>";
-	echo "<button id=\"btn_login\" style=\"display: none\">Login</button>";
-	echo "<button id=\"btn_refreshtoken\">Refresh Token</button>";
-	echo "<button id=\"btn_logout\">Logout</button>";
-} else {
-	echo "Saya belum login<br>";
-	echo "<button id=\"btn_login\">Login</button>";
-	echo "<button id=\"btn_refreshtoken\" style=\"display: none\">Refresh Token</button>";
-	echo "<button id=\"btn_logout\" style=\"display: none\">Logout</button>";
-}
 ?>
+
+<h1>Selamat datang di FGTA5</h1>
+
+<?php if (Session::getCurrentLogin()) { ?>
+	<div style="border: 1px solid #ccc; background-color: #eee; padding: 10px">
+	Halo <span style="font-weight: bold">user_fullname</span>,<br>
+	saat ini kamu telah login,<br>
+	dan kamu dapat melakukan <a href="page/logout">logout</a> kapanpun kamu mau.<br><br>
+	Apabila nilai pada konfigurasi umur token kamu buat cukup kecil untuk keamanan,<br>
+	kamu bisa juga melakukan refresh token untuk memperpanjang sesi sebelum expired.
+
 </div>
+<?php } ?>	
+
+<p>
+	FGTA5 merupakan lightweight framework yang menggunakan pendekatan Javascript first, dan PHP sebagai backend.
+	Pendekan ini akan menjawab kompleksitas pemrograman, dengan melakukan tiering antara proses yang terjadi view,
+	dengan proses-proses controller dan model. 
+</p>
+ 
+<p>
+	FGTA5 juga akan mengembalikan behaviour pemrograman baik php/javascript kembali ke 'trah' semula, 
+	yaitu pemrograman yang sederhana, namun mampu menjawab tantangan modern.
+</p>
+
+
+<h2>Setup FGTA5</h5>
+<p>
+	Direkomensasikan untuk menggunakan docker pada saat mengembangkan aplikasi dengan fgta5, 
+	karna akan menghemat banyak waktu dan tenaga untuk mempersiapkan <i>environtment</i> pemrograman.
+</p>
+
+
+<h3>Menggunakan Docker Compose</h3>
+<p>
+	Diasumsikan kamu sudah menginstall docker di komputer kamu masing-masing, dan kamu dapat download dockerbuilder 
+	pada link <a href="">https://git.com</a>
+</p>
+
+<p>
+	Setelah extract hasil downloadnya, kamu akan menemukan file bernama fgta5server.yml,<br>
+	kemudian untuk ngebuild image dan create containernya, jalankan perintah:<br>
+	<div class="code">
+		<code>$ docker compose -f fgta5server.yml up -d</code>	
+	</div>
+</p>	
+
+<h3>Persiapan Framework</h3>
+<h4>Dengan Script</h4>
+<p>
+	Apabila kamu menggunakan linux/unix/macos, kamu bisa mendownload bash script untuk setup di sini...
+</p>
+<h4>Cara Manual</h4>
+<p>
+	Apabila kamu mau menggunakan cara manual, lakukan hal seperti berikut:
+	<ul>
+		<li>
+	</ul>
+</p>
+
+<?php
+
+// if (Session::getCurrentLogin()) {
+// 	echo "Saya <b>sudah</b> login<br>";
+// 	echo "<button id=\"btn_login\" style=\"display: none\">Login</button>";
+// 	echo "<button id=\"btn_refreshtoken\">Refresh Token</button>";
+// 	echo "<button id=\"btn_logout\">Logout</button>";
+// } else {
+// 	echo "Saya belum login<br>";
+// 	echo "<button id=\"btn_login\">Login</button>";
+// 	echo "<button id=\"btn_refreshtoken\" style=\"display: none\">Refresh Token</button>";
+// 	echo "<button id=\"btn_logout\" style=\"display: none\">Logout</button>";
+// }
+?>

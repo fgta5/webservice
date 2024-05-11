@@ -19,6 +19,8 @@ Configuration::$APP_CONFIG = [
 	'FAVICON_URLPATH' => 'data/assets/ferrineicon.ico',
 
 	'LOGIN_PAGE' => 'page/login',
+	'TOKEN_API_MAX_LIFETIME' => 60, 		// 1 menit
+	'TOKEN_PAGE_MAX_LIFETIME' => 2592000,	// 30 hari
 
 	'TEMPLATES' => [
 		'DEFAULT' => __ROOT_DIR__ .'/data/templates/fgta5_webservice_v1',
@@ -34,8 +36,6 @@ Configuration::$APP_CONFIG = [
 		'E_FRM2_MGP' => [],
 		'E_FRM2_BACKUP' => [],
 	],
-
-	'WA_LOGIN_NUMBER' => '6285885525565',
 
 	'APP_ID' => 'TFIWEB',
 	'APP_PRIVATE_KEY' => '', // defined later in app-keypair

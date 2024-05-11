@@ -67,8 +67,11 @@ class PageService extends Service {
 			try {
 				$this->VerifyAuthorization();
 			} catch (\Exception $ex) {
-				echo "login dulu";	
-				die();
+				$baseaddress = Configuration::getBaseAddress();
+				$loginpage = Configuration::getAppConfig('LOGIN_PAGE', 'page/login');
+				$referer =  $baseaddress . '/' . trim($_SERVER['REQUEST_URI'], "/");
+				header("location: $baseaddress/$loginpage?referer=$referer");
+				die('window akan diredirect ke halaman login');
 			}
 		}
 
