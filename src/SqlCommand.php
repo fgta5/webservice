@@ -21,8 +21,13 @@
 */
 
 class SqlCommand {
-	private string $_fbq = '`'; // starting quote
-	private string $_feq = '`'; // ending quote
+
+	private static string $_default_fbq = '`'; // starting quote;
+	private static string $_default_feq = '`'; // ending quote
+	
+
+	private string $_fbq;
+	private string $_feq;
 
 	private string $_tablename;
 	private string $_sql;
@@ -55,7 +60,13 @@ class SqlCommand {
 	
 	public static function create(string $tablename, array $data, ?array $keys=null) : self {
 		$query = new self($tablename, $data, $keys);
+		$query->setQuote(self::$_default_fbq, self::$_default_feq);
 		return $query;
+	}
+
+	public static function setDefaultQuote(string $fbq, string $feq) : void {
+		self::$_default_fbq = $fbq; 
+		self::$_default_feq = $feq;
 	}
 
 	public function setQuote(string $fbq, string $feq) : void {
