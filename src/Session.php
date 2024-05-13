@@ -2,8 +2,8 @@
 
 class Session {
 
-	public const SESSION_TABLE = 'fgt_session';
-	public const TOKEN_TABLE = 'fgt_token';
+	public const SESSION_TABLE = 'session';
+	public const TOKEN_TABLE = 'token';
 	public const API_MAX_LIFETIME = 30; //5*60;
 	public const PAGE_MAX_LIFETIME = 1*60; //30*60;
 	public const TOKEN_MAX_LIFETIME = 10*60;
@@ -593,6 +593,58 @@ class Session {
 
 
 /*
+
+CREATE TABLE public.session (
+	session_id varchar(33) NOT NULL,
+	session_timestart timestamp NOT NULL,
+	session_maxlifetime int NOT NULL,
+	session_timeexpired timestamp NOT NULL,
+	session_lastaccess timestamp NULL,
+	session_token varchar(1000) NULL,
+	session_accesstype varchar(4) NULL,
+	user_id varchar(30) NULL,
+	user_fullname varchar(255) NULL,
+	CONSTRAINT pk_session_id PRIMARY KEY (session_id)
+);
+
+
+
+
+CREATE TABLE public.token (
+	token_id varchar(13) NOT NULL,
+	token_data varchar(1000) NULL,
+	token_timestart timestamp NOT NULL,
+	token_timeexpired timestamp NOT NULL,
+	user_id varchar(30) NULL,
+	user_fullname varchar(255) NULL,
+	CONSTRAINT pk_token_id PRIMARY KEY (token_id)	
+);
+
+
+create or replace function public.trigger_session_onupdate ()
+	returns trigger
+	language plpgsql
+	as $$
+	begin
+		if (new.session_accesstype <> old.session_accesstype) then
+			raise exception 'nilai kolom session_accesstype tidak boleh diganti' using ERRCODE=99001;
+		end if;
+		
+		return old;
+	end $$;
+
+
+create or replace trigger onupdate
+	before update of session_accesstype on public.session 
+	for each row
+	execute function trigger_session_onupdate()
+
+
+
+
+
+
+
 CREATE TABLE fgt_session (
 	session_id varchar(33) NOT NULL,
 	session_timestart DATETIME NOT NULL,
@@ -618,6 +670,8 @@ begin
         signal sqlstate '45000' set message_text = msg;
     end if;
 end
+
+
 
 
 
