@@ -4,16 +4,14 @@ class Template {
 	
 
 	public static string $PageTitle = 'WEB';
-	public static bool $showHeader = true;
-	public static bool $showFooter = true;
-	public static bool $showMenu = true;
-
-
+	
+	
 	private static Page $__page;
 	private static array $__DATA;
 	private static array $__config;
 	private static string $__file;
 	private static string $__dir;
+	private static array $__variables = [];
 
 
 	private static array $__tplVar = [];
@@ -21,6 +19,18 @@ class Template {
 	private static array $__javascriptsmodule = [];
 	private static array $__css = [];
 
+
+	public static function getVariable(string $name, mixed $defaultvalue = null) : mixed {
+		if (array_key_exists($name, self::$__variables)) {
+			return self::$__variables[$name];
+		} else {
+			return $defaultvalue;
+		}
+	}
+
+	public static function setVariable(string $name, mixed $value) : void {
+		self::$__variables[$name] = $value;
+	}
 
 	public static function Use(string $tpldir, ?string $devicetype=null) {
 		self::$__dir = $tpldir;
