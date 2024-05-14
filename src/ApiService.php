@@ -81,9 +81,9 @@ class ApiService extends Service {
 		} catch (\Exception $ex) {
 			$debugoutput = ob_get_contents();
 			ob_end_clean();
-			$code = $ex->getCode();
+			$code = (string)$ex->getCode();
 			$message = $ex->getMessage();
-			if ($code==0 || $code==500) {
+			if ($code=="0" || $code=="500") {
 				$message = "API Internal Error: " . $ex->getMessage();
 			} 
 			return self::ApiError($code, $message, $debugoutput);
@@ -182,9 +182,9 @@ class ApiService extends Service {
 	*/
 
 
-	protected static function ApiError(int $code, string $message, string $debugoutput) : string {
+	protected static function ApiError(string $code, string $message, string $debugoutput) : string {
 		return json_encode([
-			'code' => $code!=0 ? $code : 500,
+			'code' => $code!="0" ? $code : "500",
 			'message' => $message,
 			'debugoutput' => $debugoutput
 		]);		
