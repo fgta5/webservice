@@ -1,7 +1,7 @@
 <?php namespace Fgta5\Webservice;
 
 class ApiOAuth {
-	const APIREQUEST_TABLE = 'fgt_apirequest';
+	const APIREQUEST_TABLE = 'apirequest';
 	const MAXLIFETIME = 2*60;
 
 	private static \PDO $__dbConn;
@@ -187,6 +187,15 @@ class ApiOAuth {
 
 
 /*
+
+CREATE TABLE apirequest (
+  apirequest_id varchar(100) NOT NULL,
+  apirequest_timestamp timestamp NOT NULL,
+  apirequest_timeexpired timestamp DEFAULT NULL,
+  apirequest_endpoint varchar(512) DEFAULT NULL,
+  app_id varchar(30) NOT NULL,
+  CONSTRAINT pk_apirequest_id PRIMARY KEY (apirequest_id)	
+)
 
 
 CREATE TABLE fgt_apirequest (
