@@ -62,18 +62,29 @@ class PageService extends Service {
 		}
 
 
-		$authorized = array_key_exists('authorized', $PAGE_CONFIG) ? $PAGE_CONFIG['authorized'] : true;
-		if ($authorized!==false) {
-			try {
-				$this->VerifyAuthorization();
-			} catch (\Exception $ex) {
+		$need_authorization = array_key_exists('authorized', $PAGE_CONFIG) ? $PAGE_CONFIG['authorized'] : true;
+		$isloginpage = array_key_exists('isloginpage', $PAGE_CONFIG) ?  $PAGE_CONFIG['isloginpage'] : false;
+		$currentLogin = Session::getCurrentLogin();
+
+		if ($need_authorization!==false) {
+			// halaman membutuhkan authorisasi
+			if ($currentLogin==null) {
 				$baseaddress = Configuration::getBaseAddress();
 				$loginpage = Configuration::getAppConfig('LOGIN_PAGE', 'page/login');
 				$referer =  $baseaddress . '/' . trim($_SERVER['REQUEST_URI'], "/");
 				header("location: $baseaddress/$loginpage?referer=$referer");
 				die('window akan diredirect ke halaman login');
 			}
+		} else if ($isloginpage===true) {
+			// anyway, untuk halaman login, apabila sudah login,
+			// langsung redirect aja ke 
+			if ($currentLogin!==null) {
+				$baseaddress = Configuration::getBaseAddress();
+				header("location: $baseaddress");
+				die('window akan diredirect ke halaman utama');
+			}
 		}
+
 
 		$page_classname = $PAGE_CONFIG['classname'];
 		if (!class_exists($page_classname)) {
@@ -149,15 +160,15 @@ class PageService extends Service {
 		return trim($requestedparameter, '/');
 	}
 
-	protected function VerifyAuthorization() : void {
-		try {
-			if (Session::getCurrentLogin()==null) {
-				throw new \Exception('Sesi ini tidak diauthorisasi', 10020); 
-			}
-		} catch (\Exception $ex) {
-			throw $ex;
-		}
-	}
+	// protected function VerifyAuthorization() : void {
+	// 	try {
+	// 		if (Session::getCurrentLogin()==null) {
+	// 			throw new \Exception('Sesi ini tidak diauthorisasi', 10020); 
+	// 		}
+	// 	} catch (\Exception $ex) {
+	// 		throw $ex;
+	// 	}
+	// }
 
 }
 
