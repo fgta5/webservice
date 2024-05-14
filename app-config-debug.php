@@ -25,6 +25,7 @@ Configuration::$APP_CONFIG = [
 	'TEMPLATES' => [
 		'DEFAULT' => __ROOT_DIR__ .'/data/templates/fgta5_webservice_v1',
 	],
+
 	'LIB_FGTA5WEBSERVICE_DIR' => __ROOT_DIR__ .'/src',
 	'DB' => [
 		'FGTAMAIN' => [
