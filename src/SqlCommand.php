@@ -235,6 +235,10 @@ class SqlCommand {
 				$paramname = $this->getparamname($name);
 
 				$fields[] = $fieldname;
+				if (!isset($this->_keys)) {
+					continue;
+				}
+
 				if (is_array($this->_keys)) {
 					if (in_array($name, $this->_keys)) {
 						$keyfields[] = "$fieldname=$paramname";
@@ -249,10 +253,12 @@ class SqlCommand {
 			$sql  = "SELECT " . implode(', ', $fields) . "\r\n";
 			$sql .= "FROM $tablename\r\n";
 
-			if (is_array($this->_keys)) {
-				$sql .= "WHERE\r\n";
-				$sql .= implode(' AND ', $keyfields);
-			} 
+			if (isset($this->_keys)) {
+				if (is_array($this->_keys)) {
+					$sql .= "WHERE\r\n";
+					$sql .= implode(' AND ', $keyfields);
+				} 
+			}
 
 			$this->_sql = $sql;
 			$this->_paramsvalue = $paramsvalue;
