@@ -1,4 +1,4 @@
 vendor/
-test.php
+test*
 info.php
 .DS_Store
