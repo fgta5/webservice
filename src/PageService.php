@@ -160,15 +160,5 @@ class PageService extends Service {
 		return trim($requestedparameter, '/');
 	}
 
-	// protected function VerifyAuthorization() : void {
-	// 	try {
-	// 		if (Session::getCurrentLogin()==null) {
-	// 			throw new \Exception('Sesi ini tidak diauthorisasi', 10020); 
-	// 		}
-	// 	} catch (\Exception $ex) {
-	// 		throw $ex;
-	// 	}
-	// }
-
 }
 
