@@ -287,12 +287,6 @@ class Template {
 			window.\$ui = null;
 			window.addEventListener(\"load\", async (event) => {
 
-				// Prepare Template
-				if (window.\$tpl.lib!==undefined) {
-					if (typeof window.\$tpl.lib.Prepare==='function') {
-						await window.\$tpl.lib.Prepare();
-					}
-				}
 
 				// trigger UI Read
 				await window.\$ui.Prepare();
@@ -303,13 +297,6 @@ $otherModuleInit
 
 				// trigger UI Read
 				await window.\$ui.Ready();
-
-				// Template Ready
-				if (window.\$tpl.lib!==undefined) {
-					if (typeof window.\$tpl.lib.Ready==='function') {
-						window.\$tpl.lib.Ready();
-					}
-				}
 		
 			});
 		</script>
