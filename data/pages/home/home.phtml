@@ -8,11 +8,23 @@ use Fgta5\Webservice\Session;
 	<div style="border: 1px solid #ccc; background-color: #eee; padding: 10px">
 	Halo <span style="font-weight: bold">user_fullname</span>,<br>
 	saat ini kamu telah login,<br>
-	dan kamu dapat melakukan <a href="page/logout">logout</a> kapanpun kamu mau.<br><br>
+	dan kamu dapat melakukan <a id="btn_logout" href="page/logout">logout</a> kapanpun kamu mau.<br><br>
 	Apabila nilai pada konfigurasi umur token kamu buat cukup kecil untuk keamanan,<br>
-	kamu bisa juga melakukan refresh token untuk memperpanjang sesi sebelum expired.
-
-</div>
+	kamu bisa juga melakukan <a id="btn_refreshtoken" href="javascript:void(0)">refresh token</a> untuk memperpanjang sesi sebelum expired.
+	</div>
+	<div style="display:none">
+	<a id="btn_login" href="page/login">login</a>
+	</div>
+<?php } else { ?>
+	<div style="border: 1px solid #ccc; background-color: #eee; padding: 10px">
+	Halo,<br>
+	saat ini kamu telah berhasil melakukan installasi framework Fgta5/Webservice.<br>
+	selanjutnya, cobalah untuk <a id="btn_login" href="page/login">login</a>. 
+	</div>
+	<div style="display:none">
+	<a id="btn_logout" href="page/logout">logout</a>
+	<a id="btn_refreshtoken" href="javascript:void(0)">refresh token</a>
+	</div>
 <?php } ?>	
 
 <p>

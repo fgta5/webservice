@@ -11,7 +11,7 @@ const DB_PARAM = [
 ];
 
 Configuration::$APP_CONFIG = [
-	'BASEADDRESS' => 'http://localhost:8000',
+	'BASEADDRESS' => 'http://localhost:8005',
 	'PAGE_DATA_DIR' => __ROOT_DIR__ . '/data/pages',
 	'API_DATA_DIR' => __ROOT_DIR__ . '/data/apis',
 	'CONTENT_DATA_DIR' => __ROOT_DIR__ . '/data/contents',

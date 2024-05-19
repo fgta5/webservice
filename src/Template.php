@@ -10,6 +10,7 @@ class Template {
 	private static array $__DATA;
 	private static array $__config;
 	private static string $__file;
+	private static string $__mjs;
 	private static string $__dir;
 	private static array $__variables = [];
 
@@ -61,6 +62,16 @@ class Template {
 		if (!is_file(self::$__file)) {
 			Debug::die("File template '".self::$__file."' tidak ditemukan");
 		}
+
+		if (array_key_exists('mjs', self::$__config)) {
+			$tplmjsfile = implode('/', [self::$__dir, self::$__config['mjs']]);
+			if (is_file($tplmjsfile)) {
+				self::$__mjs = $tplmjsfile;
+			} else {
+				Debug::die("File '$tplmjsfile' tidak ditemukan");
+			}
+		}	
+
 
 	}
 
@@ -255,6 +266,12 @@ class Template {
 			$otherModuleImport .= "			import * as mod$i from '$scripturl'\r\n";
 			$otherModuleAssignToWindow .= "			$varname = mod$i\r\n";
 			$otherModuleInit .= "				await $varname.Init();\r\n";
+		}
+
+		if (isset(self::$__mjs)) {
+			$otherModuleImport .= "			import * as tpllib from '".Template::getAssetUrlFromAbsPath(self::$__mjs)."'\r\n";
+			$otherModuleAssignToWindow .= "			window.\$tpl.lib = tpllib\r\n";
+			$otherModuleInit .= "				await window.\$tpl.lib.Init();\r\n";
 		}
 
 
